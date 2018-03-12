@@ -1,8 +1,11 @@
 #include<iostream>
 using namespace std;
 
+unsigned helper[2000000];       // Declaring 4 000 000 int-s (or unsigned-s) in main is a problem for the Arena,
+                                // so we need to move the declaration of one of the big arrays here.
+
 template<typename T>
-void merge_sort(T* arr, unsigned n, T* helper, unsigned& inv) {
+void merge_sort(T* arr, unsigned n, T* helper, unsigned long long& inv) {
     if (n <= 1)
         return;
 
@@ -30,13 +33,15 @@ void merge_sort(T* arr, unsigned n, T* helper, unsigned& inv) {
 }
 
 int main() {
-    unsigned arr[2000000], helper[2000000], n;
+    std::ios::sync_with_stdio(false);       // This magical line makes cin and cout work faster.
+                                            // We will discuss it next time.
+    unsigned arr[2000000], n;
     cin >> n;
 
     for (unsigned i = 0; i < n; i++) {
         cin >> arr[i];
     }
-    unsigned inv = 0;
+    unsigned long long inv = 0;             // inv may become huge, so we use bigger type.
     merge_sort(arr, n, helper, inv);
     cout << inv << '\n';
 }
